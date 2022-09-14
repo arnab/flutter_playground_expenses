@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money2/money2.dart';
+
 import 'package:flutter_playground_expenses_app/data/transaction.dart';
 
 void main() => runApp(MyApp());
@@ -63,7 +65,7 @@ class MyHomePage extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        tx.amount.toString(),
+                        Money.fromNum(tx.amount, code: 'CAD').format('S0.00'),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
