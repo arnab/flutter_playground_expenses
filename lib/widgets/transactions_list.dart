@@ -16,7 +16,7 @@ class TransactionList extends StatelessWidget {
       child: ListView.builder(
         itemCount: _transactions.length,
         itemBuilder: (ctx, i) {
-          var tx = _transactions[i];
+          final tx = _transactions[i];
           return Card(
             child: Row(
               children: [
