@@ -30,6 +30,9 @@ class MyHomePage extends StatelessWidget {
         id: 'T3', title: 'Udemy', amount: 120.00, createdAt: DateTime.now()),
   ];
 
+  final _titleEditingController = TextEditingController();
+  final _amountEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,14 +57,18 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(labelText: 'Title'),
+                  TextField(
+                    decoration: const InputDecoration(labelText: 'Title'),
+                    controller: _titleEditingController,
                   ),
-                  const TextField(
-                    decoration: InputDecoration(labelText: 'Amount'),
+                  TextField(
+                    decoration: const InputDecoration(labelText: 'Amount'),
+                    controller: _amountEditingController,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print('Title: ${_titleEditingController.text} and Amount: ${_amountEditingController.text}');
+                    },
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.purple,
                     ),
