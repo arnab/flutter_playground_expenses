@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:money2/money2.dart';
 
 import 'package:flutter_playground_expenses_app/data/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -84,7 +85,7 @@ class MyHomePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          tx.createdAt.toString(),
+                          DateFormat.yMMMEd().format(tx.createdAt),
                           style: const TextStyle(
                             color: Colors.grey,
                           ),
