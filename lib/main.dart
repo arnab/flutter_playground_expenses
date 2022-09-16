@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_playground_expenses_app/widgets/transactions_list.dart';
+
+import 'widgets/transactions.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter App',
       home: MyHomePage(),
     );
@@ -16,10 +17,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
-
-  final _titleEditingController = TextEditingController();
-  final _amountEditingController = TextEditingController();
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,35 +36,7 @@ class MyHomePage extends StatelessWidget {
               child: Text('Chart Area'),
             ),
           ),
-          Card(
-            elevation: 5,
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextField(
-                    decoration: const InputDecoration(labelText: 'Title'),
-                    controller: _titleEditingController,
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(labelText: 'Amount'),
-                    controller: _amountEditingController,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      print('Title: ${_titleEditingController.text} and Amount: ${_amountEditingController.text}');
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.purple,
-                    ),
-                    child: const Text('Add Transaction'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          TransactionList(),
+          const Transactions(),
         ],
       ),
     );
