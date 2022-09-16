@@ -5,14 +5,14 @@ import 'package:money2/money2.dart';
 import '../data/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  TransactionList(this.transactions, {Key? key}) : super(key: key);
+  const TransactionList(this._transactions, {Key? key}) : super(key: key);
 
-  final List<Transaction> transactions;
+  final List<Transaction> _transactions;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: transactions.map((tx) {
+      children: _transactions.map((tx) {
         return Card(
           child: Row(
             children: [

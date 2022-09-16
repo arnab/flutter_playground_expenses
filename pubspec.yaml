@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   money2: ^3.3.0
   intl: ^0.17.0
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:
