@@ -49,14 +49,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _uuid = const Uuid();
 
-  final List<Transaction> _transactions = [
-    Transaction(
-        id: 'T1', title: 'Shoes', amount: 129.99, createdAt: DateTime.now()),
-    Transaction(
-        id: 'T2', title: 'Grocery', amount: 84.38, createdAt: DateTime.now()),
-    Transaction(
-        id: 'T3', title: 'Udemy', amount: 120.00, createdAt: DateTime.now()),
-  ];
+  final List<Transaction> _transactions = [];
 
   void _addNewTransaction(String title, double amount) {
     final tx = Transaction(
