@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_playground_expenses_app/widgets/new_transaction.dart';
 import 'package:uuid/uuid.dart';
 
 import 'data/transaction.dart';
+import 'widgets/chart.dart';
+import 'widgets/new_transaction.dart';
 import 'widgets/transactions_list.dart';
 
 void main() => runApp(const MyApp());
@@ -15,25 +18,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expenszy',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.purple,
-        ).copyWith(secondary: Colors.amber),
-        fontFamily: 'Quicksand',
-        textTheme: ThemeData.light().textTheme.copyWith(
-          titleMedium: const TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          )
-        ),
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.purple,
+          ).copyWith(secondary: Colors.amber),
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                  titleMedium: const TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              )),
+          appBarTheme: const AppBarTheme(
+              titleTextStyle: TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 20,
             fontWeight: FontWeight.bold,
-          )
-        )
-      ),
+          ))),
       home: const MyHomePage(),
     );
   }
@@ -50,6 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final _uuid = const Uuid();
 
   final List<Transaction> _transactions = [];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tx) {
+      return tx.createdAt.isAfter(
+        DateTime.now().subtract(const Duration(days: 7)),
+      );
+    }).toList();
+  }
 
   void _addNewTransaction(String title, double amount) {
     final tx = Transaction(
@@ -90,11 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Container(
               alignment: Alignment.center,
-              child: const Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('Chart Area'),
-              ),
+              child: Chart(_recentTransactions),
             ),
             TransactionList(_transactions),
           ],
