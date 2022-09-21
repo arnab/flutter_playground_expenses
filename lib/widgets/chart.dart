@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../data/transaction.dart';
+import 'chart_bar.dart';
 
 class Chart extends StatelessWidget {
   const Chart(this._recentTransactions, {Key? key}) : super(key: key);
@@ -20,10 +21,14 @@ class Chart extends StatelessWidget {
           .fold(0.0, (a, b) => a + b);
 
       return {
-        'day': DateFormat.E().format(doW),
+        'day': DateFormat.E().format(doW).substring(0, 1),
         'amount': sumForDay,
       };
     });
+  }
+
+  double get totalSpending {
+    return transactionsByDoW.fold(0.0, (currentTotal, tx) => currentTotal + (tx['amount'] as double));
   }
 
   @override
@@ -32,7 +37,13 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: const EdgeInsets.all(20),
       child: Row(
-        children: [],
+        children: transactionsByDoW.map((data) {
+          return ChartBar(
+            label: data['day'] as String,
+            spendingAmount: (data['amount'] as double),
+            spendingAsPct: (data['amount'] as double) / totalSpending,
+          );
+        }).toList(),
       ),
     );
   }

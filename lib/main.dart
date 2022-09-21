@@ -49,7 +49,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _uuid = const Uuid();
 
-  final List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = [
+    Transaction(id: const Uuid().v4(), title: 'Tennis Classes', amount: 730.00, createdAt: DateTime.parse('2022-09-15')),
+    Transaction(id: const Uuid().v4(), title: 'Tennis Racket', amount: 227.99, createdAt: DateTime.parse('2022-09-17')),
+    Transaction(id: const Uuid().v4(), title: 'Clove Restaurant', amount: 227.99, createdAt: DateTime.parse('2022-09-18')),
+    Transaction(id: const Uuid().v4(), title: 'Grocery', amount: 68.72, createdAt: DateTime.parse('2022-09-19')),
+    Transaction(id: const Uuid().v4(), title: 'Starbucks', amount: 6.72, createdAt: DateTime.parse('2022-09-20')),
+  ];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tx) {
