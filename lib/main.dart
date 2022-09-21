@@ -65,17 +65,17 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
         id: const Uuid().v4(),
         title: 'Tennis Classes',
-        amount: 730.00,
+        amount: 55.00,
         createdAt: DateTime.parse('2022-09-15')),
     Transaction(
         id: const Uuid().v4(),
         title: 'Tennis Racket',
-        amount: 227.99,
+        amount: 127.99,
         createdAt: DateTime.parse('2022-09-17')),
     Transaction(
         id: const Uuid().v4(),
-        title: 'Clove Restaurant',
-        amount: 227.99,
+        title: 'Weekend Brunch with Friends',
+        amount: 123.99,
         createdAt: DateTime.parse('2022-09-18')),
     Transaction(
         id: const Uuid().v4(),
