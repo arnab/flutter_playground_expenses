@@ -11,6 +11,7 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _transactions.sort((t1, t2) => t2.createdAt.compareTo(t1.createdAt));
     return SizedBox(
       height: 500,
       child: _transactions.isEmpty
