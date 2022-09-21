@@ -5,9 +5,10 @@ import 'package:money2/money2.dart';
 import '../data/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList(this._transactions, {Key? key}) : super(key: key);
+  const TransactionList(this._transactions, this._deleteTransaction, {Key? key}) : super(key: key);
 
   final List<Transaction> _transactions;
+  final Function _deleteTransaction;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,11 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(
                       DateFormat.yMMMEd().format(tx.createdAt),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Theme.of(context).colorScheme.error,
+                      onPressed: () => _deleteTransaction(tx.id),
                     ),
                   ),
                 );
