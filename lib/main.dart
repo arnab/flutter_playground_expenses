@@ -20,14 +20,26 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.purple,
-          ).copyWith(secondary: Colors.amber),
+          ).copyWith(
+              secondary: Colors.amber,
+          ),
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
-                  titleMedium: const TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              )),
+                titleLarge: const TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+                titleMedium: const TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                titleSmall: const TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 14,
+                ),
+              ),
           appBarTheme: const AppBarTheme(
               titleTextStyle: TextStyle(
             fontFamily: 'OpenSans',
@@ -50,11 +62,31 @@ class _MyHomePageState extends State<MyHomePage> {
   final _uuid = const Uuid();
 
   final List<Transaction> _transactions = [
-    Transaction(id: const Uuid().v4(), title: 'Tennis Classes', amount: 730.00, createdAt: DateTime.parse('2022-09-15')),
-    Transaction(id: const Uuid().v4(), title: 'Tennis Racket', amount: 227.99, createdAt: DateTime.parse('2022-09-17')),
-    Transaction(id: const Uuid().v4(), title: 'Clove Restaurant', amount: 227.99, createdAt: DateTime.parse('2022-09-18')),
-    Transaction(id: const Uuid().v4(), title: 'Grocery', amount: 68.72, createdAt: DateTime.parse('2022-09-19')),
-    Transaction(id: const Uuid().v4(), title: 'Starbucks', amount: 6.72, createdAt: DateTime.parse('2022-09-20')),
+    Transaction(
+        id: const Uuid().v4(),
+        title: 'Tennis Classes',
+        amount: 730.00,
+        createdAt: DateTime.parse('2022-09-15')),
+    Transaction(
+        id: const Uuid().v4(),
+        title: 'Tennis Racket',
+        amount: 227.99,
+        createdAt: DateTime.parse('2022-09-17')),
+    Transaction(
+        id: const Uuid().v4(),
+        title: 'Clove Restaurant',
+        amount: 227.99,
+        createdAt: DateTime.parse('2022-09-18')),
+    Transaction(
+        id: const Uuid().v4(),
+        title: 'Grocery',
+        amount: 68.72,
+        createdAt: DateTime.parse('2022-09-19')),
+    Transaction(
+        id: const Uuid().v4(),
+        title: 'Starbucks',
+        amount: 6.72,
+        createdAt: DateTime.parse('2022-09-20')),
   ];
 
   List<Transaction> get _recentTransactions {
