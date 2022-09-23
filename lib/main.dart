@@ -161,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final heightBelowAppBar = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
-    const chartHeightPct = 0.3;
+    const chartHeightPct = 0.6;
 
     return Scaffold(
       appBar: appBar,
