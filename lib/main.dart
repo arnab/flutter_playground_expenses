@@ -87,30 +87,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Transaction> _transactions = [
     Transaction(
-        id: const Uuid().v4(),
-        title: 'Tennis Classes',
-        amount: 55.00,
-        createdAt: DateTime.parse('2022-09-15')),
+      id: const Uuid().v4(),
+      title: 'Tennis Classes',
+      amount: 55.00,
+      createdAt: DateTime.now().subtract(const Duration(days: 6)),
+    ),
     Transaction(
-        id: const Uuid().v4(),
-        title: 'Tennis Racket',
-        amount: 127.99,
-        createdAt: DateTime.parse('2022-09-17')),
+      id: const Uuid().v4(),
+      title: 'Tennis Racket',
+      amount: 127.99,
+      createdAt: DateTime.now().subtract(const Duration(days: 5)),
+    ),
     Transaction(
-        id: const Uuid().v4(),
-        title: 'Weekend Brunch with Friends',
-        amount: 123.99,
-        createdAt: DateTime.parse('2022-09-18')),
+      id: const Uuid().v4(),
+      title: 'Weekend Brunch with Friends',
+      amount: 123.99,
+      createdAt: DateTime.now().subtract(const Duration(days: 4)),
+    ),
     Transaction(
-        id: const Uuid().v4(),
-        title: 'Grocery',
-        amount: 68.72,
-        createdAt: DateTime.parse('2022-09-19')),
+      id: const Uuid().v4(),
+      title: 'Grocery',
+      amount: 68.72,
+      createdAt: DateTime.now().subtract(const Duration(days: 2)),
+    ),
     Transaction(
-        id: const Uuid().v4(),
-        title: 'Starbucks',
-        amount: 6.72,
-        createdAt: DateTime.parse('2022-09-20')),
+      id: const Uuid().v4(),
+      title: 'Starbucks',
+      amount: 6.72,
+      createdAt: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -171,7 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
         portraitMode || (landscapeMode && !_showChartSwitchState);
     final showChart = portraitMode || (landscapeMode && _showChartSwitchState);
     final chartHeightPct = landscapeMode ? 0.6 : 0.3;
-    final transactionsListHeightPct = landscapeMode ? 0.6 : (1 - chartHeightPct);
+    final transactionsListHeightPct =
+        landscapeMode ? 0.6 : (1 - chartHeightPct);
 
     return Scaffold(
       appBar: appBar,
