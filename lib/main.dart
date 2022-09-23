@@ -10,11 +10,13 @@ import 'widgets/new_transaction.dart';
 import 'widgets/transactions_list.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  // Disable landscape mode:
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
+
   runApp(const MyApp());
 }
 
@@ -23,37 +25,48 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var primaryColor = Colors.purple;
+    var primaryColorAccent = Colors.purpleAccent;
+    var secondaryColor = Colors.amber;
+
     return MaterialApp(
       title: 'Expenszy',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.purple,
-          ).copyWith(
-            secondary: Colors.amber,
-          ),
-          fontFamily: 'Quicksand',
-          textTheme: ThemeData.light().textTheme.copyWith(
-                titleLarge: const TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-                titleMedium: const TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                titleSmall: const TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 14,
-                ),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: primaryColor,
+        ).copyWith(
+          secondary: secondaryColor,
+        ),
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              titleLarge: const TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
-          appBarTheme: const AppBarTheme(
-              titleTextStyle: TextStyle(
+              titleMedium: const TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+              titleSmall: const TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 14,
+              ),
+            ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 20,
             fontWeight: FontWeight.bold,
-          ))),
+          ),
+        ),
+        switchTheme: SwitchThemeData(
+          thumbColor: MaterialStateProperty.all(primaryColor),
+          trackColor: MaterialStateProperty.resolveWith((states) =>
+              states.contains(MaterialState.selected) ? primaryColorAccent : null),
+        ),
+      ),
       home: const MyHomePage(),
     );
   }
@@ -68,6 +81,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _uuid = const Uuid();
+  var _showChart = false;
 
   final List<Transaction> _transactions = [
     Transaction(
@@ -155,17 +169,32 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: heightBelowAppBar * chartHeightPct,
-                child: Chart(_recentTransactions),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Show Chart'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      _showChart = val;
+                    });
+                  },
+                ),
+              ],
             ),
-            SizedBox(
-              height: heightBelowAppBar * (1 - chartHeightPct),
-              child: TransactionList(_transactions, _deleteTransaction),
-            ),
+            _showChart
+                ? Container(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      height: heightBelowAppBar * chartHeightPct,
+                      child: Chart(_recentTransactions),
+                    ),
+                  )
+                : SizedBox(
+                    height: heightBelowAppBar * (1 - chartHeightPct),
+                    child: TransactionList(_transactions, _deleteTransaction),
+                  ),
           ],
         ),
       ),
