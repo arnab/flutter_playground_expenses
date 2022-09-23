@@ -64,7 +64,9 @@ class MyApp extends StatelessWidget {
         switchTheme: SwitchThemeData(
           thumbColor: MaterialStateProperty.all(primaryColor),
           trackColor: MaterialStateProperty.resolveWith((states) =>
-              states.contains(MaterialState.selected) ? primaryColorAccent : null),
+              states.contains(MaterialState.selected)
+                  ? primaryColorAccent
+                  : null),
         ),
       ),
       home: const MyHomePage(),
@@ -81,7 +83,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _uuid = const Uuid();
-  var _showChart = false;
+  var _showChartSwitchState = false;
 
   final List<Transaction> _transactions = [
     Transaction(
@@ -161,7 +163,15 @@ class _MyHomePageState extends State<MyHomePage> {
     final heightBelowAppBar = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
-    const chartHeightPct = 0.6;
+
+    final landscapeMode =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final portraitMode = !landscapeMode;
+    final showTransactions =
+        portraitMode || (landscapeMode && !_showChartSwitchState);
+    final showChart = portraitMode || (landscapeMode && _showChartSwitchState);
+    final chartHeightPct = landscapeMode ? 0.6 : 0.3;
+    final transactionsListHeightPct = landscapeMode ? 0.6 : (1 - chartHeightPct);
 
     return Scaffold(
       appBar: appBar,
@@ -169,32 +179,34 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Show Chart'),
-                Switch(
-                  value: _showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChart = val;
-                    });
-                  },
-                ),
-              ],
-            ),
-            _showChart
-                ? Container(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      height: heightBelowAppBar * chartHeightPct,
-                      child: Chart(_recentTransactions),
-                    ),
-                  )
-                : SizedBox(
-                    height: heightBelowAppBar * (1 - chartHeightPct),
-                    child: TransactionList(_transactions, _deleteTransaction),
+            if (landscapeMode)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Show Chart'),
+                  Switch(
+                    value: _showChartSwitchState,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChartSwitchState = val;
+                      });
+                    },
                   ),
+                ],
+              ),
+            if (showChart)
+              Container(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: heightBelowAppBar * chartHeightPct,
+                  child: Chart(_recentTransactions),
+                ),
+              ),
+            if (showTransactions)
+              SizedBox(
+                height: heightBelowAppBar * transactionsListHeightPct,
+                child: TransactionList(_transactions, _deleteTransaction),
+              ),
           ],
         ),
       ),
