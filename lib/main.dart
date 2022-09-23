@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.purple,
           ).copyWith(
-              secondary: Colors.amber,
+            secondary: Colors.amber,
           ),
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
@@ -126,25 +126,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var appBar = AppBar(
+      title: const Text('Expenszy'),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        )
+      ],
+    );
+
+    final heightBelowAppBar = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+    const chartHeightPct = 0.3;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Expenszy'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               alignment: Alignment.center,
-              child: Chart(_recentTransactions),
+              child: SizedBox(
+                height: heightBelowAppBar * chartHeightPct,
+                child: Chart(_recentTransactions),
+              ),
             ),
-            TransactionList(_transactions, _deleteTransaction),
+            SizedBox(
+              height: heightBelowAppBar * (1 - chartHeightPct),
+              child: TransactionList(_transactions, _deleteTransaction),
+            ),
           ],
         ),
       ),
