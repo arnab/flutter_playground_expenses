@@ -192,40 +192,42 @@ class _MyHomePageState extends State<MyHomePage> {
     final transactionsListHeightPct =
         landscapeMode ? 0.6 : (1 - chartHeightPct);
 
-    final pageBody = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (landscapeMode)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Show Chart'),
-                Switch.adaptive(
-                  activeColor: Theme.of(context).colorScheme.secondary,
-                  value: _showChartSwitchState,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChartSwitchState = val;
-                    });
-                  },
-                ),
-              ],
-            ),
-          if (showChart)
-            Container(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: heightBelowAppBar * chartHeightPct,
-                child: Chart(_recentTransactions),
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (landscapeMode)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Show Chart'),
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).colorScheme.secondary,
+                    value: _showChartSwitchState,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChartSwitchState = val;
+                      });
+                    },
+                  ),
+                ],
               ),
-            ),
-          if (showTransactions)
-            SizedBox(
-              height: heightBelowAppBar * transactionsListHeightPct,
-              child: TransactionList(_transactions, _deleteTransaction),
-            ),
-        ],
+            if (showChart)
+              Container(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: heightBelowAppBar * chartHeightPct,
+                  child: Chart(_recentTransactions),
+                ),
+              ),
+            if (showTransactions)
+              SizedBox(
+                height: heightBelowAppBar * transactionsListHeightPct,
+                child: TransactionList(_transactions, _deleteTransaction),
+              ),
+          ],
+        ),
       ),
     );
 
