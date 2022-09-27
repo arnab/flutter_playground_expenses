@@ -165,12 +165,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    final heightBelowAppBar = MediaQuery.of(context).size.height -
+    var mediaQuery = MediaQuery.of(context);
+    final heightBelowAppBar = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
 
     final landscapeMode =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+        mediaQuery.orientation == Orientation.landscape;
     final portraitMode = !landscapeMode;
     final showTransactions =
         portraitMode || (landscapeMode && !_showChartSwitchState);
