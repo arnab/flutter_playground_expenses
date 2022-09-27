@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -79,17 +82,28 @@ class _NewTransactionState extends State<NewTransaction> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
+                      child:
+                          Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
                     ),
-                    TextButton(
-                      onPressed: _showDatePicker,
-                      child: const Text(
-                        'Choose Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            onPressed: _showDatePicker,
+                            child: const Text(
+                              'Choose Date',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : TextButton(
+                            onPressed: _showDatePicker,
+                            child: const Text(
+                              'Choose Date',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),
