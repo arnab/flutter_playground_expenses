@@ -12,7 +12,11 @@ the course material.
 * Displays summary of last 7 days with a chart
 * Add/remove transactions
 * All data is stored and managed on device for now
+
+And some cool stuff I learned to build adaptive and responsive apps:
+
 * Responsive UI (shows more details when there is more space, e.g. on an iPad)
+* Different views in portrait vs. landscape orientation
 * Adaptive UI (iOS and Android show their own own native styles). e.g. on Android you will see a different navigation elements and floating action buttons (typical in Material design).
 
 ## Screenshot!
