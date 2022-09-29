@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var primaryColor = Colors.purple;
     var primaryColorAccent = Colors.purpleAccent;
-    var secondaryColor = Colors.amber;
+    var secondaryColor = Colors.pink;
 
     return MaterialApp(
       title: 'Expenszy',
